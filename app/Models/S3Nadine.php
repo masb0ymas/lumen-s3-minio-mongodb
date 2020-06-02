@@ -24,9 +24,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * @property string file_name
  * @property string file_size
  * @property string mimetypes
- * @property string service_name
  * @property string user_id
- * @property string role_id
  * @property Carbon created_at
  * @property Carbon updated_at
  */
@@ -38,8 +36,6 @@ class S3Nadine extends Model
         'file_name',
         'file_size',
         'mimetypes',
-        'service_name',
         'user_id',
-        'role_id',
     ];
 }

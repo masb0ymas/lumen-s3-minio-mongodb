@@ -18,9 +18,7 @@ class S3Nadine extends Migration
             $table->string('file_name');
             $table->string('file_size');
             $table->string('mimetypes');
-            $table->string('service_name');
             $table->string('user_id');
-            $table->string('role_id');
             $table->timestamps();
         });
     }

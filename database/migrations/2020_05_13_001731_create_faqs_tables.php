@@ -15,10 +15,8 @@ class CreateFaqsTables extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('category_id');
             $table->text('pertanyaan');
             $table->text('jawaban');
-            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }
