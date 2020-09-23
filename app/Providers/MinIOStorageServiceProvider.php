@@ -44,5 +44,6 @@ class MinIOStorageServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //
     }
 }
