@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver'        => 'local',
             'root'          => storage_path('app/public'),
-            'url'           => env('APP_URL').'/storage',
+            'url'           => env('APP_URL') . '/storage',
             'visibility'    => 'public',
         ],
 
@@ -65,14 +65,14 @@ return [
             'endpoint'      => env('AWS_ENDPOINT'),
         ],
 
-		'minio' => [
-			'driver'        => 'minio',
-			'key'           => env('MINIO_ACCESS_KEY', 'Q3AM3UQ867SPQQA43P2F'),
-			'secret'        => env('MINIO_SECRET_KEY', 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG'),
-			'region'        => env('MINIO_REGION', 'us-east-1'),
-			'bucket'        => env('MINIO_BUCKET','00test'),
-			'endpoint'      => env('MINIO_ENDPOINT','https://play.minio.io:9000/')
-		]
+        'minio' => [
+            'driver'        => 'minio',
+            'key'           => env('MINIO_ACCESS_KEY', 'Q3AM3UQ867SPQQA43P2F'),
+            'secret'        => env('MINIO_SECRET_KEY', 'zuftfteSlswRu7BJ86wekitnifILbZam1KYY3TG'),
+            'region'        => env('MINIO_REGION', 'us-east-1'),
+            'bucket'        => env('MINIO_BUCKET', 'test'),
+            'endpoint'      => env('MINIO_ENDPOINT', 'https://play.minio.io:9000/')
+        ],
 
     ],
 
