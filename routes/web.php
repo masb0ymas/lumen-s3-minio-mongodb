@@ -1,28 +1,25 @@
 <?php
 
-/** @var $router \Laravel\Lumen\Routing\Router */
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It is a breeze. Simply tell Lumen the URIs it should respond to
+| and give it the Closure to call when that URI is requested.
+|
+*/
 
-$router->get('/', function () {
+$router->get('/', function () use ($router) {
     return response()->json(['Hello' => 'world']);
 });
 
-$router->group(['prefix' => '/faq'], function () use ($router) {
-    $router->get('/', 'FaqController@index');
-    $router->post('/', 'FaqController@store');
-});
-
-$router->group(['prefix' => '/action'], function () use ($router) {
-    $router->get('/', 'ActionController@index');
-    $router->post('/', 'ActionController@store');
-    $router->put('/{id}', 'ActionController@update');
-    $router->delete('/{id}', 'ActionController@destroy');
-});
-
 $router->group(['prefix' => '/storage'], function () use ($router) {
-    $router->get('/', 'MinIOController@index');
-    $router->get('/files', 'MinIOController@list_files');
-    $router->get('/{id}', 'MinIOController@get_one');
-    $router->post('/', 'MinIOController@store');
-    $router->put('/{id}', 'MinIOController@update');
-    $router->delete('/{id}', 'MinIOController@destroy');
+    $router->get('/', 'UploadController@get_all');
+    $router->get('/direct/{id}', 'UploadController@redirect_url');
+    $router->get('/{id}', 'UploadController@get_one');
+    $router->post('/', 'UploadController@store');
+    $router->put('/{id}', 'UploadController@update');
+    $router->delete('/{id}', 'UploadController@destroy');
 });
