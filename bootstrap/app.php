@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -25,9 +25,8 @@ $app = new Laravel\Lumen\Application(
 
 $app->configure('filesystems');
 
-$app->withFacades(true, [
-    \Bschmitt\Amqp\Facades\Amqp::class => 'Amqp',
-]);
+$app->withFacades();
+
 $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 
 $app->withEloquent();
@@ -65,7 +64,6 @@ $app->singleton(
 */
 
 $app->configure('app');
-$app->configure('amqp');
 $app->configure('swagger-lume');
 
 /*
@@ -106,7 +104,6 @@ $app->middleware([
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
-$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
 $app->register(App\Providers\MinIOStorageServiceProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
 
@@ -124,7 +121,7 @@ $app->register(\SwaggerLume\ServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__ . '/../routes/web.php';
+    require __DIR__.'/../routes/web.php';
 });
 
 return $app;
