@@ -1,11 +1,9 @@
 <?php
 
-/** @var Factory $factory */
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Action;
-use App\Models\Faq;
+use App\User;
 use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +16,9 @@ use Illuminate\Database\Eloquent\Factory;
 |
 */
 
-$factory->define(Faq::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
-        'pertanyaan' => $faker->paragraph,
-        'jawaban' => $faker->paragraph(5),
-    ];
-});
-
-$factory->define(Action::class, function (Faker $faker) {
-    return [
-        'uraian' => $faker->text,
+        'name' => $faker->name,
+        'email' => $faker->email,
     ];
 });
