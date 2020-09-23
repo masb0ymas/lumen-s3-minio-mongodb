@@ -1,32 +1,52 @@
-version: '2'
-
+version: "3.8"
 services:
+  app:
+    build:
+      context: .
+    container_name: lumen_app
+    restart: always
+    ports:
+      - "8100:8080"
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    networks:
+      - lumen_network
+
+  mongodb:
+    image: mongo:latest
+    container_name: lumen_mongodb
+    hostname: lumen_mongodb
+    volumes:
+      - "./storage/mongo-volume:/data/db:rw"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_DATABASE}
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - lumen_network
+
   minio:
     image: minio/minio
-    container_name: minio_server
-    ports:
-      - 9000:9000
-    env_file:
-      - .env
-    environment:
-      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
-      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
-    command: server /data
+    container_name: lumen_minio_server
+    hostname: lumen_minio_server
     volumes:
-      - minio:/usr/data/minio
+      - ./storage/minio-volume:/usr/data/minio
+      - ./storage/minio-volume:/data
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_HTTP_TRACE: /dev/stdout
+    command: server /data
+    ports:
+      - 9100:9000
+    restart: always
+    networks:
+      - lumen_network
 
-  mc:
-    image: minio/mc
-    depends_on:
-      - minio
-    container_name: minio_client
-    env_file:
-      - .env
-    entrypoint: >
-      /bin/sh -c "
-      /usr/bin/mc mb ${MINIO_BUCKET};
-      /usr/bin/mc policy set public ${MINIO_BUCKET};
-      /usr/bin/mc stat ${MINIO_BUCKET};
-      "
-volumes:
-  minio:
+networks:
+  lumen_network:
+    driver: bridge
