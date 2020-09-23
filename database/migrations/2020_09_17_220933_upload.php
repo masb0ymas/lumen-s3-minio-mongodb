@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class S3Nadine extends Migration
+class Upload extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class S3Nadine extends Migration
      */
     public function up()
     {
-        Schema::create('s3_nadine', function (Blueprint $table) {
+        Schema::create('upload', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
             $table->string('file_size');
             $table->string('mimetypes');
-            $table->string('user_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class S3Nadine extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('s3_nadine');
+        Schema::dropIfExists('upload');
     }
 }
