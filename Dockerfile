@@ -1,5 +1,5 @@
 FROM webdevops/php-nginx:7.3-alpine
-RUN docker-php-ext-install pdo mbstring sockets
+RUN docker-php-ext-install pdo mbstring sockets opcache
 RUN apk add --no-cache \
 	$PHPIZE_DEPS \
 	openssl-dev
@@ -34,7 +34,14 @@ RUN docker-php-ext-install zip
 RUN apk add libxslt-dev
 RUN docker-php-ext-install xsl
 
+# RUN pecl install mongodb && rm -rf /tmp/pear
+# RUN pecl install redis && rm -rf /tmp/pear
 RUN docker-php-ext-enable mongodb redis
+
+COPY ./php.ini $PHP_INI_DIR/php.ini
+COPY ./application.conf /opt/docker/etc/php/fpm/pool.d/application.conf
+COPY ./nginx.conf /opt/docker/etc/nginx/nginx.conf
+COPY ./vhost.conf /opt/docker/etc/nginx/vhost.conf
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
