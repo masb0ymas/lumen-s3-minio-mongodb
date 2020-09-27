@@ -5,6 +5,14 @@ services:
       context: .
     container_name: lumen_app
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 2048M
+        reservations:
+          cpus: 2
+          memory: 2048M
     ports:
       - "8100:80"
     volumes:
