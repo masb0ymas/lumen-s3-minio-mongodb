@@ -19,12 +19,12 @@ class UploadController extends Controller
         //
     }
 
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $data = Upload::all();
+        $data = Upload::query();
 
         return response()->json([
-            'data' => $data
+            'data' => $data->search($request)
         ]);
     }
 
@@ -59,7 +59,7 @@ class UploadController extends Controller
     private function rules()
     {
         $rules = [
-            'dokumen'   => 'required|max:10240|mimes:doc,docx,xlsx,xls,ppt,pptx,pdf,zip,png,jpg,jpeg',
+            'dokumen' => 'required|max:10240|mimes:doc,docx,xlsx,xls,ppt,pptx,pdf,zip,png,jpg,jpeg',
         ];
 
         return $rules;
@@ -152,7 +152,9 @@ class UploadController extends Controller
 
         // check file di storage
         if ($disk->exists($nama_file)) {
-            $dataS3 = $disk->delete($nama_file);
+
+            // delete from bucket
+            $disk->delete($nama_file);
 
             // delete from database
             $data->delete();
