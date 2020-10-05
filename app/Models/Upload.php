@@ -3,6 +3,7 @@
 
 namespace App\Models;
 
+use App\Traits\SearchTrait;
 use Carbon\Carbon;
 use Jenssegers\Mongodb\Eloquent\Model;
 
@@ -25,7 +26,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * )
  */
 
- /**
+/**
  * @OA\Schema(
  *      schema="UploadGenerateURL",
  *      description="Upload Generate URL",
@@ -56,6 +57,8 @@ use Jenssegers\Mongodb\Eloquent\Model;
  */
 class Upload extends Model
 {
+    use SearchTrait;
+
     protected $collection = 'upload';
 
     protected $fillable = [
