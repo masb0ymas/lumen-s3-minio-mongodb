@@ -49,7 +49,14 @@ COPY . /var/www
 WORKDIR /var/www
 RUN chown -R application:application .
 
-RUN composer install
+# using composer.phar v1
+# RUN composer install
+# RUN composer update
+
+# using composer.phar v2
+RUN php composer.phar install
+RUN php composer.phar update
+
 # RUN php artisan swagger-lume:generate
 
 # EXPOSE 8080
